@@ -1,0 +1,6 @@
+C:\Users\sosullivan\Godot\.mono\temp\obj\Tools\Pong Multiplayer.csprojAssemblyReference.cache
+C:\Users\sosullivan\Godot\.mono\temp\obj\Tools\Pong Multiplayer.csproj.CoreCompileInputs.cache
+C:\Users\sosullivan\Godot\.mono\temp\bin\Tools\Pong Multiplayer.dll
+C:\Users\sosullivan\Godot\.mono\temp\bin\Tools\Pong Multiplayer.pdb
+C:\Users\sosullivan\Godot\.mono\temp\obj\Tools\Pong Multiplayer.dll
+C:\Users\sosullivan\Godot\.mono\temp\obj\Tools\Pong Multiplayer.pdb
