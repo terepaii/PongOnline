@@ -31,7 +31,7 @@ public class lobby : Control
 	///////////////////////////////////////////////////
 	private void PlayerConnected(int Id)
 	{
-		PackedScene scene = ResourceLoader.Load("res://pong_multiplayer.tscn") as PackedScene; 
+		PackedScene scene = ResourceLoader.Load("res://pong.tscn") as PackedScene; 
 		Node2D Pong = scene.Instance() as Node2D;
 		Pong.Connect("GameFinished", this, "EndGame", null, (int)ConnectFlags.Deferred);
 

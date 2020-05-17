@@ -11,6 +11,11 @@ public class pong : Node2D
 
     float Shake = 0;
     float ShakeMagnitude = 15;
+
+    enum GAME_MODE {
+        SINGLE_PLAYER,
+        MULTI_PLAYER
+    }
     
     [Signal]
     public delegate void GameFinished();
@@ -19,21 +24,28 @@ public class pong : Node2D
 
     int GameMode = -1;
 
-    MarginContainer MainMenu;
-
     public override void _Ready()
     {
-        GD.Print("Game Mode: " + this.GameMode);
+        var MainMenuNode = GetTree().Root.FindNode("MainMenu");
+        MainMenuNode.Connect("SetSinglePlayer", this, "SetSinglePlayer");
         BoostStreamPlayer = GetNode("BoostSound") as AudioStreamPlayer;
-        if (GetTree().IsNetworkServer())
+
+        if(GameMode == (int)GAME_MODE.SINGLE_PLAYER)
         {
-            GetNode("Player2").SetNetworkMaster(GetTree().GetNetworkConnectedPeers()[0]);
+            Console.WriteLine("We're in single player mode!");
         }
-        else
+        else if(GameMode == (int)GAME_MODE.MULTI_PLAYER)
         {
-            GetNode("Player2").SetNetworkMaster(GetTree().GetNetworkUniqueId());
+            if (GetTree().IsNetworkServer())
+            {
+                GetNode("Player2").SetNetworkMaster(GetTree().GetNetworkConnectedPeers()[0]);
+            }
+            else
+            {
+                GetNode("Player2").SetNetworkMaster(GetTree().GetNetworkUniqueId());
+            }
+            Console.WriteLine("UniqueID: ", GetTree().GetNetworkUniqueId());
         }
-        Console.WriteLine("UniqueID: ", GetTree().GetNetworkUniqueId());
     }
 
     public override void _Input(InputEvent @event)
@@ -68,6 +80,11 @@ public class pong : Node2D
         }
     }
 
+    private void SetSinglePlayer(int GameMode)
+    {
+        this.GameMode = (int)GAME_MODE.SINGLE_PLAYER;
+    }
+
     private void ShakeTheScreen()
     {
         Camera2D Camera = GetNode<Camera2D>("Camera2D");
@@ -83,11 +100,6 @@ public class pong : Node2D
         return A.Position.DistanceTo(B.Position) < Distance;
     }
 
-    [Sync]
-    public void SetGameMode(int GameMode)
-    {
-        this.GameMode = GameMode;
-    }
     [Sync]
     public void UpdateHealth(bool SubtractHealthFromLeft, int Damage)
     {

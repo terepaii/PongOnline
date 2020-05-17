@@ -27,15 +27,15 @@ public class MainMenu : MarginContainer
     AudioStreamPlayer MenuMoveSound;
 
     [Signal]
-    public delegate void SetGameMode(int GameMode);
+    public delegate void SetSinglePlayer();
     public override void _Ready()
     {
         // Keep track of the currently selected menu item
         CurrentPosInMenu = 0;
         // Load main menu items
-        SinglePlayerItem = GetNode("/root/MarginContainer/MainContainer/LeftSideContainer/MenuOptions/Singleplayer") as TextureRect;
-        MultiplayerItem = GetNode("/root/MarginContainer/MainContainer/LeftSideContainer/MenuOptions/Multiplayer") as TextureRect;
-        OptionsItem = GetNode("/root/MarginContainer/MainContainer/LeftSideContainer/MenuOptions/Options") as TextureRect;
+        SinglePlayerItem = GetNode("/root/MainMenu/MainContainer/LeftSideContainer/MenuOptions/Singleplayer") as TextureRect;
+        MultiplayerItem = GetNode("/root/MainMenu/MainContainer/LeftSideContainer/MenuOptions/Multiplayer") as TextureRect;
+        OptionsItem = GetNode("/root/MainMenu/MainContainer/LeftSideContainer/MenuOptions/Options") as TextureRect;
 
         // Load main menu textures
         SinglePlayerItemTexture = ResourceLoader.Load("res://MainMenu/label_single_player.png") as Texture;
@@ -105,9 +105,9 @@ public class MainMenu : MarginContainer
             {
                 PackedScene PongScene = ResourceLoader.Load<PackedScene>("res://pong.tscn");
                 Node2D Pong = PongScene.Instance() as Node2D;    
-                GetTree().Root.AddChild(Pong);
-                EmitSignal(nameof(SetGameMode), 0);
+                this.AddChild(Pong);
                 Hide();
+                EmitSignal(nameof(SetSinglePlayer));
             }
             // Kick off the multiplayer portion of the game
             if(CurrentPosInMenu == 1)
@@ -115,7 +115,6 @@ public class MainMenu : MarginContainer
                 PackedScene LobbyScene = ResourceLoader.Load<PackedScene>("res://lobby.tscn");
                 Control Lobby = LobbyScene.Instance() as Control;
                 GetTree().Root.AddChild(Lobby);
-                EmitSignal(nameof(SetGameMode), 1);
                 Hide();
             }
         }

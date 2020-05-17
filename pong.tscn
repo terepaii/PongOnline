@@ -6,13 +6,13 @@
 [ext_resource path="res://bounce.wav" type="AudioStream" id=4]
 [ext_resource path="res://separator.png" type="Texture" id=5]
 [ext_resource path="res://scripts/Separator.cs" type="Script" id=6]
-[ext_resource path="res://scripts/pong_multiplayer.cs" type="Script" id=7]
+[ext_resource path="res://scripts/pong.cs" type="Script" id=7]
 [ext_resource path="res://scripts/HealthBar.cs" type="Script" id=8]
 [ext_resource path="res://scripts/screen_shake.cs" type="Script" id=9]
 
 [sub_resource type="ShaderMaterial" id=1]
 
-[node name="PongMultiplayer" type="Node2D"]
+[node name="Pong" type="Node2D"]
 script = ExtResource( 7 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
